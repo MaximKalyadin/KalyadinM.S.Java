@@ -11,9 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TruckDesigner {
-
-	
-	
 	private JFrame frame;
 	private JButton btnNewButtonRight;
 	private JButton btnNewButtonDown;

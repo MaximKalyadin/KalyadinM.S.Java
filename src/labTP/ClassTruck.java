@@ -115,14 +115,4 @@ public class ClassTruck {
 	        }
     	}
     }
-    public void PrintBox(Graphics g, int y, int x) {
-   	 g.setColor(Color.red);
-   	 g.fillRect((int)_startPosX + x + 10, (int)_startPosY - y, 3, 3);
-   	 g.setColor(Color.black);
-   	 g.drawRect((int)_startPosX + x + 10, (int)_startPosY - y, 3, 3);
-    }
-    
-        
-    
-    
 }

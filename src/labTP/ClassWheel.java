@@ -25,30 +25,32 @@ public class ClassWheel {
         _pictureWidth = width;
         _pictureHeight = height;
     }
-    public void DrawWheel(Graphics g, int x) {
+    public void DrawWheel(Graphics g, int k){
     	if (WLife) {
-	    	g.setColor(ColorWheel);
+    		int x = 0;
+    		g.setColor(ColorWheel);
 	        g.fillOval(_startPosX + 110, _startPosY + 40, 23, 23);
-	        g.fillOval(_startPosX + x + 20, _startPosY + 40, 23, 23);
+    		for (int i = 0; i < k; i++) {
+		        g.fillOval(_startPosX + x + 20, _startPosY + 40, 23, 23);
+    			x += 25;
+    		}
     	}
     }
     public void Draw(Graphics g) {
-    	int x = 0;
+    	int k = 0;
     	switch (temp) 
     	{
     	case wheel2:
-    		DrawWheel(g, x);
+    		k = 1;
     		break;
     	case wheel3:
-    		DrawWheel(g, x);
-    		DrawWheel(g, x + 50);
+    		k = 2;
     		break;
     	case wheel4:
-    		DrawWheel(g, x);
-    		DrawWheel(g, x + 25);
-    		DrawWheel(g, x + 50);
+    		k = 3;
     		break;
     	}
+    	DrawWheel(g, k);
     }
     
     
