@@ -4,6 +4,6 @@ public interface ITransport {
 	void SetPosition(int x, int y, int width, int height);
 	void MoveTransport(Tenum direction);
     void DrawTruck(Graphics g);
-    int getStartPosX();
-    int getStartPosY();
+    int getPosX();
+    int getPosY();
 }

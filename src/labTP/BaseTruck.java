@@ -43,14 +43,14 @@ public class BaseTruck extends AbstractTruck {
                 break;
         }
     }
-    public int getStartPosX() {
+    public int getPosX() {
 		return _startPosX;
 	}
 
-	public int getStartPosY() {
+	public int getPosY() {
 		return _startPosY;
 	}
-    public  void DrawTruck(Graphics g) {
+    public void DrawTruck(Graphics g) {
     		//кабина
 	    	g.setColor(Color.BLACK);
 	    	g.drawRect(_startPosX + 100, _startPosY - 6, 50, 55);

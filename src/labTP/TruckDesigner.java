@@ -19,7 +19,7 @@ public class TruckDesigner {
 	private JButton btnCreate;
 	private PanelTrack panelMain;
 	private ITransport truck;
-	private IWheel wheel = new TwoDiskWheel(Color.BLACK);
+	private IWheel wheel; 
 	private JButton btnCreateFull;
 	
 	
@@ -56,7 +56,7 @@ public class TruckDesigner {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		
-		panelMain = new PanelTrack();
+		panelMain = new PanelTrack(truck, wheel);
 		panelMain.setBounds(0, 0, 882, 603);
 		frame.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
@@ -67,10 +67,11 @@ public class TruckDesigner {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				truck = new BaseTruck(10, Color.blue, 20);
+				wheel = new ClassWheel(Color.BLACK);
 				panelMain.setTruck(truck);
 				panelMain.setWheel(wheel);
 				truck.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
-				wheel.SetPosition(truck.getStartPosX(), truck.getStartPosX());
+				wheel.SetPosition(truck.getPosX(), truck.getPosX());
 				panelMain.repaint();
 			}
 		});
@@ -82,7 +83,7 @@ public class TruckDesigner {
 			public void actionPerformed(ActionEvent arg0) {
 				if (truck != null && wheel != truck) {
 					truck.MoveTransport(Tenum.Right);
-					wheel.SetPosition(truck.getStartPosX(), truck.getStartPosY());
+					wheel.SetPosition(truck.getPosX(), truck.getPosY());
 					panelMain.repaint();
 				}
 			}
@@ -96,7 +97,7 @@ public class TruckDesigner {
 			public void actionPerformed(ActionEvent e) {
 				if (truck != null && wheel != truck) {
 				truck.MoveTransport(Tenum.Down);
-				wheel.SetPosition(truck.getStartPosX(), truck.getStartPosY());
+				wheel.SetPosition(truck.getPosX(), truck.getPosY());
 				panelMain.repaint();
 			}
 			}
@@ -110,7 +111,7 @@ public class TruckDesigner {
 			public void actionPerformed(ActionEvent e) {
 				if (truck != null && wheel != truck) {
 					truck.MoveTransport(Tenum.Left);
-					wheel.SetPosition(truck.getStartPosX(), truck.getStartPosY());
+					wheel.SetPosition(truck.getPosX(), truck.getPosY());
 					panelMain.repaint();
 				}
 			}
@@ -124,7 +125,7 @@ public class TruckDesigner {
 			public void actionPerformed(ActionEvent e) {
 				if (truck != null && wheel != truck) {
 					truck.MoveTransport(Tenum.Up);
-					wheel.SetPosition(truck.getStartPosX(), truck.getStartPosY());
+					wheel.SetPosition(truck.getPosX(), truck.getPosY());
 					panelMain.repaint();
 				}
 			}
@@ -137,10 +138,11 @@ public class TruckDesigner {
 		btnCreateFull.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				truck = new FullTruck(10, Color.blue, 20, Color.orange, true, true, true);
+				wheel = new TwoDiskWheel(Color.BLACK);
 				panelMain.setTruck(truck);
 				panelMain.setWheel(wheel);
 				truck.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
-				wheel.SetPosition(truck.getStartPosX(), truck.getStartPosX());
+				wheel.SetPosition(truck.getPosX(), truck.getPosY());
 				panelMain.repaint();
 			}
 		});

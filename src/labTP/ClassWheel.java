@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class ClassWheel implements IWheel{
 	
-	private int _startPosX;
-    private int _startPosY;
+	static int _startPosX;
+    static int _startPosY;
     private Color ColorWheel;
     
     

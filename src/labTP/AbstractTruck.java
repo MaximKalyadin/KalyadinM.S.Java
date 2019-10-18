@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class AbstractTruck implements ITransport{
-	protected int _startPosX;
-    protected int _startPosY;
+	static int _startPosX;
+    static int _startPosY;
     protected int _pictureWidth;
     protected int _pictureHeight;
     public int MaxSpeed;
