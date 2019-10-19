@@ -3,19 +3,21 @@ package labTP;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-import javax.swing.JPanel;
-
 public class PanelTrack extends JPanel {
-	private ClassTruck truck;
-	private ClassWheel wheel;
-	public PanelTrack(ClassTruck truck, ClassWheel wheel) {
+	private ITransport truck;
+	private IWheel wheel;
+	public PanelTrack(ITransport truck, IWheel wheel) {
 		this.truck = truck;
 		this.wheel = wheel;
+	}
+	void setTruck(ITransport truck) {
+		this.truck = truck;
 	}
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		truck.DrawTruck(g);
-		wheel.Draw(g);
+		if (truck != null) {
+			truck.DrawTruck(g);
+		}
 	}
 }

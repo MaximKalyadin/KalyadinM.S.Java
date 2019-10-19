@@ -15,11 +15,14 @@ public class TruckDesigner {
 	private JButton btnNewButtonRight;
 	private JButton btnNewButtonDown;
 	private JButton btnNewButtonLeft;
-	private JButton btnNewButtonUp;
+	private JButton btnNewButtonUp; ;
 	private JButton btnCreate;
-	private JPanel panelMain;
-	private ClassTruck truck = new ClassTruck(false, 10, 20, Color.blue, Color.orange, true, true, true);
-	private ClassWheel wheel = new ClassWheel(Color.black, false, Wenum.wheel4);
+	private PanelTrack panelMain;
+	private ITransport truck;
+	private IWheel wheel;
+	private JButton btnCreateFull;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,15 +61,12 @@ public class TruckDesigner {
 		frame.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
 		
-		
-		
 		btnCreate = new JButton("Cоздать");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClassWheel.WLife = true;
-				ClassTruck.Life = true;
+				truck = new BaseTruck(10, Color.blue, 20, wheel = new TwoDiskWheel(Color.BLACK));
+				panelMain.setTruck(truck);
 				truck.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
-				wheel.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
 				panelMain.repaint();
 			}
 		});
@@ -76,9 +76,11 @@ public class TruckDesigner {
 		btnNewButtonRight = new JButton(">");
 		btnNewButtonRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				truck.MoveTransport(Tenum.Right);
-				wheel.SetPosition(truck._startPosX, truck._startPosY, frame.getWidth(), frame.getHeight());
-				panelMain.repaint();
+				if (truck != null && wheel != truck) {
+					truck.MoveTransport(Tenum.Right);
+					wheel.SetPosition(truck.getPosX(), truck.getPosY());
+					panelMain.repaint();
+				}
 			}
 		});
 		btnNewButtonRight.setFont(new Font("Tahoma", Font.PLAIN, 7));
@@ -88,9 +90,11 @@ public class TruckDesigner {
 		btnNewButtonDown = new JButton("v");
 		btnNewButtonDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (truck != null && wheel != truck) {
 				truck.MoveTransport(Tenum.Down);
-				wheel.SetPosition(truck._startPosX, truck._startPosY, frame.getWidth(), frame.getHeight());
+				wheel.SetPosition(truck.getPosX(), truck.getPosY());
 				panelMain.repaint();
+			}
 			}
 		});
 		btnNewButtonDown.setFont(new Font("Tahoma", Font.PLAIN, 7));
@@ -100,9 +104,11 @@ public class TruckDesigner {
 		btnNewButtonLeft = new JButton("<");
 		btnNewButtonLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				truck.MoveTransport(Tenum.Left);
-				wheel.SetPosition(truck._startPosX, truck._startPosY, frame.getWidth(), frame.getHeight());
-				panelMain.repaint();
+				if (truck != null && wheel != truck) {
+					truck.MoveTransport(Tenum.Left);
+					wheel.SetPosition(truck.getPosX(), truck.getPosY());
+					panelMain.repaint();
+				}
 			}
 		});
 		btnNewButtonLeft.setFont(new Font("Tahoma", Font.PLAIN, 7));
@@ -112,13 +118,27 @@ public class TruckDesigner {
 		btnNewButtonUp = new JButton("^");
 		btnNewButtonUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				truck.MoveTransport(Tenum.Up);
-				wheel.SetPosition(truck._startPosX, truck._startPosY, frame.getWidth(), frame.getHeight());
-				panelMain.repaint();
+				if (truck != null && wheel != truck) {
+					truck.MoveTransport(Tenum.Up);
+					wheel.SetPosition(truck.getPosX(), truck.getPosY());
+					panelMain.repaint();
+				}
 			}
 		});
 		btnNewButtonUp.setFont(new Font("Tahoma", Font.PLAIN, 7));
 		btnNewButtonUp.setBounds(780, 499, 39, 39);
 		panelMain.add(btnNewButtonUp);
+		
+		btnCreateFull = new JButton("Создать Full");
+		btnCreateFull.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				truck = new FullTruck(10, Color.blue, 20, wheel = new TwoDiskWheel(Color.BLACK), Color.orange, true, true, true);
+				panelMain.setTruck(truck);
+				truck.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
+				panelMain.repaint();
+			}
+		});
+		btnCreateFull.setBounds(125, 13, 147, 33);
+		panelMain.add(btnCreateFull);
 	}
 }
