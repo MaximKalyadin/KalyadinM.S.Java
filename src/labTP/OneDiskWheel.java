@@ -11,7 +11,6 @@ public class OneDiskWheel implements IWheel{
     private int _pictureHeight;
     private Color ColorWheel;
     
-    
     public OneDiskWheel(Color colorwheel) {
     	ColorWheel = colorwheel;
     }
@@ -31,7 +30,6 @@ public class OneDiskWheel implements IWheel{
 		        g.setColor(Color.yellow);
 		        g.fillOval(_startPosX + x + 23, _startPosY + 43, 17, 17);
     			x += 25;
-    		
     	}
     }
     public void Draw(Graphics g, Wenum temp) {

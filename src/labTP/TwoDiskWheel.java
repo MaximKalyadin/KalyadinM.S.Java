@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class TwoDiskWheel implements IWheel {
-
-
+	
 	private int _startPosX;
     private int _startPosY;
     private int _pictureWidth;
     private int _pictureHeight;
     private Color ColorWheel;
-    
     
     public TwoDiskWheel(Color colorwheel) {
     	ColorWheel = colorwheel;
@@ -32,7 +30,6 @@ public class TwoDiskWheel implements IWheel {
 		        g.setColor(Color.green);
 		        g.fillRect(_startPosX + x + 26, _startPosY + 46, 12, 12);
     			x += 25;
-    		
     	}
     }
     public void Draw(Graphics g, Wenum temp) {

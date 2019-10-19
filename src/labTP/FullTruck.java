@@ -9,8 +9,8 @@ public class FullTruck extends BaseTruck{
 	 public boolean Stairs;
 	 public boolean Strip;
 	 
-	 public FullTruck(int maxSpeed, Color mainColor, int weight, Color dopcolor, boolean vat, boolean stairs, boolean strip) {
-		 super(maxSpeed, mainColor, weight);
+	 public FullTruck(int maxSpeed, Color mainColor, int weight, IWheel wheel, Color dopcolor, boolean vat, boolean stairs, boolean strip) {
+		 super(maxSpeed, mainColor, weight, wheel);
 		 DopColor = dopcolor;
 		 Vat = vat;
 		 Stairs = stairs;
@@ -22,7 +22,6 @@ public class FullTruck extends BaseTruck{
 		 super.DrawTruck(g);
 		 if (Vat)
 	        {
-			 
 	            //крышка 
 	        	g.setColor(Color.BLACK);
 	            g.drawOval(_startPosX + 40, _startPosY - 6, 20, 10);

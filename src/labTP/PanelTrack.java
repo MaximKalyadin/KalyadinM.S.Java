@@ -10,22 +10,14 @@ public class PanelTrack extends JPanel {
 		this.truck = truck;
 		this.wheel = wheel;
 	}
-	
-
 	void setTruck(ITransport truck) {
 		this.truck = truck;
 	}
-	
-	void setWheel(IWheel wheel) {
-		this.wheel = wheel;
-	}
-	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (truck != null && wheel != null) {
+		if (truck != null) {
 			truck.DrawTruck(g);
-			wheel.Draw(g, Wenum.wheel4);
 		}
 	}
 }

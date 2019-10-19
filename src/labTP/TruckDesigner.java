@@ -15,11 +15,11 @@ public class TruckDesigner {
 	private JButton btnNewButtonRight;
 	private JButton btnNewButtonDown;
 	private JButton btnNewButtonLeft;
-	private JButton btnNewButtonUp;
+	private JButton btnNewButtonUp; ;
 	private JButton btnCreate;
 	private PanelTrack panelMain;
 	private ITransport truck;
-	private IWheel wheel; 
+	private IWheel wheel;
 	private JButton btnCreateFull;
 	
 	
@@ -61,17 +61,12 @@ public class TruckDesigner {
 		frame.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
 		
-		
-		
 		btnCreate = new JButton("Cоздать");
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				truck = new BaseTruck(10, Color.blue, 20);
-				wheel = new ClassWheel(Color.BLACK);
+				truck = new BaseTruck(10, Color.blue, 20, wheel = new TwoDiskWheel(Color.BLACK));
 				panelMain.setTruck(truck);
-				panelMain.setWheel(wheel);
 				truck.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
-				wheel.SetPosition(truck.getPosX(), truck.getPosX());
 				panelMain.repaint();
 			}
 		});
@@ -137,12 +132,9 @@ public class TruckDesigner {
 		btnCreateFull = new JButton("Создать Full");
 		btnCreateFull.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				truck = new FullTruck(10, Color.blue, 20, Color.orange, true, true, true);
-				wheel = new TwoDiskWheel(Color.BLACK);
+				truck = new FullTruck(10, Color.blue, 20, wheel = new TwoDiskWheel(Color.BLACK), Color.orange, true, true, true);
 				panelMain.setTruck(truck);
-				panelMain.setWheel(wheel);
 				truck.SetPosition(100, 100, frame.getWidth(), frame.getHeight());
-				wheel.SetPosition(truck.getPosX(), truck.getPosY());
 				panelMain.repaint();
 			}
 		});
