@@ -52,6 +52,7 @@ public class BaseTruck extends AbstractTruck {
 	public int getPosY() {
 		return _startPosY;
 	}
+	@Override
     public void DrawTruck(Graphics g) {
     	wheel.SetPosition(getPosX(), getPosY());
     		//кабина
