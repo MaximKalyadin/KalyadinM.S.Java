@@ -11,19 +11,14 @@ public class PanelTrack extends JPanel {
 		this.truck = truck;
 	}
 	
-	public void addTruck(ITransport truck, IWheel wheel) {
-		this.truck = truck;
-		this.wheel = wheel;
-	}
-	
 	public void RemoveTruck() {
 		truck = null;
-		wheel = null;
 	}
 	
 	void setTruck(ITransport truck) {
 		this.truck = truck;
 	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);

@@ -17,7 +17,17 @@ public class FullTruck extends BaseTruck{
 		 Strip = strip;
 	 }
 	 
-	 @Override
+	 
+	 
+	 public Color getDopColor() {
+		return DopColor;
+	}
+
+	 public Color getBaseColor() {
+		 return MainColor;
+	 }
+
+	@Override
 	 public void DrawTruck(Graphics g) {
 		 super.DrawTruck(g);
 		 if (Vat)

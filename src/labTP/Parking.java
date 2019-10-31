@@ -23,20 +23,20 @@ public class Parking <T extends Object&ITransport> {
 
     public int addTruck(T truck)
     {
-        for (int i = 0; i < _places.length; i++)
-        {
-            if (CheckFreePlace(i))
-            {
-                _places[i] = truck;
-                _places[i].SetPosition(i / 5 * _placeSizeWidth - 10,  i % 5 * _placeSizeHeight + 10, PictureWidth,
-                        PictureHeight);
-                return i;
-            }
-        }
-        return -1;
+    	if(notequally(truck)) {
+    		for(int i = 0; i<_places.length; i++) {
+    			if(CheckFreePlace(i)) {
+    				_places[i] = truck;
+    				_places[i].SetPosition(i / 5 * _placeSizeWidth - 10,  i % 5 * _placeSizeHeight + 10, PictureWidth,
+    						PictureHeight);
+    				return i;
+    			}
+    		}
+    	}
+    	return -1;
     }
     
-    public T RemoveTruck(int index)
+    public T SubTruck(int index)
     {
         if (index < 0 || index > _places.length)
         {
@@ -51,10 +51,54 @@ public class Parking <T extends Object&ITransport> {
         return null;
     }
     
-    public T getTruck(int index) {
-    	return _places[index];
+    
+    public int getindex(T truck) {
+    	System.out.println(truck);
+    	if (equally(truck)) {
+    		T equalltruck = null;
+    		for (int i = 0; i < _places.length; i++) {
+    			equalltruck = _places[i];
+    			if(equalltruck != null) {
+    				if(truck.getBaseColor().toString().equals(equalltruck.getBaseColor().toString()) && truck.getDopColor() == null && equalltruck.getDopColor() == null)
+    					return i;
+    				if(equalltruck.getDopColor() != null)
+    					if (truck.getBaseColor().toString().equals(equalltruck.getBaseColor().toString()) && truck.getDopColor().toString().equals(equalltruck.getDopColor().toString()))
+    						return i;
+    			}
+    		}
+    	}
+    	return -1;
     }
     
+    public boolean equally(T truck) {
+    	T equalltruck = null;
+    	for (int i = 0; i < _places.length; i++) {
+    		equalltruck = _places[i];
+    		if(equalltruck != null) {
+    			if(truck.getBaseColor().toString().equals(equalltruck.getBaseColor().toString()) && truck.getDopColor() == null && equalltruck.getDopColor() == null)
+    				return true;
+    			if(equalltruck.getDopColor() != null)
+    				if (truck.getBaseColor().toString().equals(equalltruck.getBaseColor().toString()) && truck.getDopColor().toString().equals(equalltruck.getDopColor().toString()))
+    					return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public boolean notequally(T truck) {
+    	T equalltruck = null;
+    	for (int i = 0; i < _places.length; i++) {
+    		equalltruck = _places[i];
+    		if(equalltruck != null) {
+    			if(truck.getBaseColor().toString().equals(equalltruck.getBaseColor().toString()) && truck.getDopColor() == null && equalltruck.getDopColor() == null)
+    				return false;
+    			if(equalltruck.getDopColor() != null)
+    				if (truck.getBaseColor().toString().equals(equalltruck.getBaseColor().toString()) && truck.getDopColor().toString().equals(equalltruck.getDopColor().toString()))
+    					return false;
+    		}
+    	}
+    	return true;
+    }
     private boolean CheckFreePlace(int index)
     {
         return _places[index] == null;

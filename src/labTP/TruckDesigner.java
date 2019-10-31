@@ -22,9 +22,8 @@ public class TruckDesigner {
 	private JFrame frame;
 	private ITransport truck;
 	private IWheel wheel;
-	private JTextField textField;
 	private Parking<ITransport> parking;
-
+	Color colorDop;
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +56,7 @@ public class TruckDesigner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		parking = new Parking<ITransport>(5, frame.getWidth(), frame.getHeight());
+		parking = new Parking<ITransport>(10, frame.getWidth(), frame.getHeight());
 		
 		PanelParking panel = new PanelParking(parking);
 		panel.setBounds(0, 0, 658, 510);
@@ -85,7 +84,7 @@ public class TruckDesigner {
 			public void actionPerformed(ActionEvent e) {
 				Color color = JColorChooser.showDialog(frame, "Основной цвет", Color.blue);
 				if(color != null) {
-					Color colorDop = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.blue);
+					colorDop = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.blue);
 					if(colorDop != null) {
 						truck = new FullTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK), colorDop, true, true, true);
 						parking.addTruck(truck);
@@ -99,20 +98,39 @@ public class TruckDesigner {
 		frame.getContentPane().add(buttonaddBase);
 		
 		PanelTrack paneltaketruck = new PanelTrack();
-		paneltaketruck.setBounds(692, 399, 246, 128);
+		paneltaketruck.setBounds(718, 395, 246, 128);
 		frame.getContentPane().add(paneltaketruck);
 		paneltaketruck.setLayout(null);
 		
-		JButton buttontaketruck = new JButton("\u0417\u0430\u0431\u0440\u0430\u0442\u044C");
+		JButton buttontaketruck = new JButton("Забрать");
 		buttontaketruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String s = textField.getText();
-				if(s != "") {
-					int index = Integer.parseInt(s);
+				Color Colorout = JColorChooser.showDialog(frame, "Основной цвет", Color.cyan);
+				Color dopColor = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.cyan);
+				if (dopColor == Color.cyan) {
+					truck = new BaseTruck(10, Colorout, 20, wheel = new TwoDiskWheel(Color.BLACK));
+				}else
+					truck = new FullTruck(10, Colorout, 20, wheel = new TwoDiskWheel(Color.BLACK), dopColor, true, true, true);
+				if (parking.getindex(truck) >= 0) {
+					paneltaketruck.RemoveTruck();
+                	paneltaketruck.repaint();
+                	truck = parking.SubTruck(parking.getindex(truck));
+                	paneltaketruck.addTruck(truck);
+                    truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
+                    paneltaketruck.repaint();
+                    panel.repaint();
+				} else
+                {
+                	paneltaketruck.RemoveTruck();
+                	paneltaketruck.repaint();
+                }
+				
+				
+				/*if(s != "") {
 	                if (parking.getTruck(index) != null) {
 	                	paneltaketruck.RemoveTruck();
 	                	paneltaketruck.repaint();
-	                	truck = parking.RemoveTruck(index);
+	                	truck = parking.SubTruck(index);
 	                	paneltaketruck.addTruck(truck);
 	                    truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
 	                    paneltaketruck.repaint();
@@ -123,20 +141,10 @@ public class TruckDesigner {
 	                	paneltaketruck.RemoveTruck();
 	                	paneltaketruck.repaint();
 	                }
-				}
+				}*/
 			}
 		});
-		buttontaketruck.setBounds(765, 360, 89, 31);
+		buttontaketruck.setBounds(795, 352, 89, 31);
 		frame.getContentPane().add(buttontaketruck);
-		
-		JLabel label = new JLabel("\u041F\u043E\u0437\u0438\u0446\u0438\u044F ");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		label.setBounds(755, 324, 113, 23);
-		frame.getContentPane().add(label);
-		
-		textField = new JTextField();
-		textField.setBounds(842, 326, 45, 23);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
 	}
 }

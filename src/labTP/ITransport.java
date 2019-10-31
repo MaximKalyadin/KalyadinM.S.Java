@@ -1,4 +1,5 @@
 package labTP;
+import java.awt.Color;
 import java.awt.Graphics;
 public interface ITransport {
 	void SetPosition(int x, int y, int width, int height);
@@ -6,4 +7,6 @@ public interface ITransport {
     void DrawTruck(Graphics g);
     int getPosX();
     int getPosY();
+    Color getBaseColor();
+    Color getDopColor();
 }
