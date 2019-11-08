@@ -2,9 +2,10 @@ package labTP;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Parking <T extends Object&ITransport> {
+public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
 	
 	private T[] _places;
+	private G[] _placesWithWheel;
     private int PictureWidth;
     private int PictureHeight;
     private final static int _placeSizeWidth = 210;
@@ -13,6 +14,7 @@ public class Parking <T extends Object&ITransport> {
     public Parking(int sizes, int pictureWidth, int pictureHeight)
     {
         _places = (T[]) new Object[sizes];
+        _placesWithWheel = (G[]) new Object[sizes];
         PictureWidth = pictureWidth;
         PictureHeight = pictureHeight;
         for (int i = 0; i < _places.length; i++)
@@ -21,7 +23,7 @@ public class Parking <T extends Object&ITransport> {
         }
     }
 
-    public int addTruck(T truck)
+    public int addTruck(T truck, G wheel)
     {
     	if(notequally(truck)) {
     		for(int i = 0; i<_places.length; i++) {
@@ -29,6 +31,8 @@ public class Parking <T extends Object&ITransport> {
     				_places[i] = truck;
     				_places[i].SetPosition(i / 5 * _placeSizeWidth - 10,  i % 5 * _placeSizeHeight + 10, PictureWidth,
     						PictureHeight);
+    				_placesWithWheel[i] = wheel;
+    				_placesWithWheel[i].SetPosition(_places[i].getPosX(), _places[i].getPosY());
     				return i;
     			}
     		}

@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class PanelParking extends JPanel {
-	private Parking<ITransport> parking;
+	private Parking<ITransport, IWheel> parking;
 		
-		public PanelParking(Parking<ITransport> parking) {
+		public PanelParking(Parking<ITransport, IWheel> parking) {
 			this.parking = parking;
 		}
 		

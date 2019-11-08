@@ -22,7 +22,7 @@ public class TruckDesigner {
 	private JFrame frame;
 	private ITransport truck;
 	private IWheel wheel;
-	private Parking<ITransport> parking;
+	private Parking<ITransport, IWheel> parking;
 	Color colorDop;
 	/**
 	 * Launch the application.
@@ -56,7 +56,7 @@ public class TruckDesigner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		parking = new Parking<ITransport>(10, frame.getWidth(), frame.getHeight());
+		parking = new Parking<ITransport, IWheel>(10, frame.getWidth(), frame.getHeight());
 		
 		PanelParking panel = new PanelParking(parking);
 		panel.setBounds(0, 0, 658, 510);
@@ -70,7 +70,7 @@ public class TruckDesigner {
 				Color color = JColorChooser.showDialog(frame, "Основной цвет", Color.cyan);
 				if(color != null) {
 					truck = new BaseTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK));
-					parking.addTruck(truck);
+					parking.addTruck(truck, wheel);
 					panel.repaint();
 				}
 			}
@@ -87,7 +87,7 @@ public class TruckDesigner {
 					colorDop = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.blue);
 					if(colorDop != null) {
 						truck = new FullTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK), colorDop, true, true, true);
-						parking.addTruck(truck);
+						parking.addTruck(truck, wheel);
 						panel.repaint();
 					}
 				}
@@ -124,24 +124,6 @@ public class TruckDesigner {
                 	paneltaketruck.RemoveTruck();
                 	paneltaketruck.repaint();
                 }
-				
-				
-				/*if(s != "") {
-	                if (parking.getTruck(index) != null) {
-	                	paneltaketruck.RemoveTruck();
-	                	paneltaketruck.repaint();
-	                	truck = parking.SubTruck(index);
-	                	paneltaketruck.addTruck(truck);
-	                    truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
-	                    paneltaketruck.repaint();
-	                    panel.repaint();
-	                }
-	                else
-	                {
-	                	paneltaketruck.RemoveTruck();
-	                	paneltaketruck.repaint();
-	                }
-				}*/
 			}
 		});
 		buttontaketruck.setBounds(795, 352, 89, 31);
