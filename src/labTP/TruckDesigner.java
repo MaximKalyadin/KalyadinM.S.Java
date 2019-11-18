@@ -11,10 +11,15 @@ import javax.swing.JColorChooser;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 import java.util.Random;
+import java.util.Stack;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 
 public class TruckDesigner {
@@ -22,8 +27,12 @@ public class TruckDesigner {
 	private JFrame frame;
 	private ITransport truck;
 	private IWheel wheel;
-	private Parking<ITransport, IWheel> parking;
-	Color colorDop;
+	private MultiLevelParking parking;
+	private Stack<ITransport> tableTruck = new Stack<ITransport>();
+	private Stack<IWheel> tableWheel = new Stack<IWheel>();
+	int pos = 0;
+	private JTextField textField_1;
+	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -52,81 +61,134 @@ public class TruckDesigner {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1099, 616);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		parking = new Parking<ITransport, IWheel>(10, frame.getWidth(), frame.getHeight());
+		parking = new MultiLevelParking(5, frame.getWidth(), frame.getHeight() - 100);
 		
-		PanelParking panel = new PanelParking(parking);
-		panel.setBounds(0, 0, 658, 510);
+		PanelParking panel = new PanelParking(parking.getParking(0));
+		panel.setBounds(0, 0, 542, 510);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
+		textField_1 = new JTextField();
+		textField_1.setBounds(670, 332, 38, 20);
+		frame.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
 		
-		JButton buttonaddtruck = new JButton("Ð‘ÐµÐ½Ð·Ð¾Ð²Ð¾Ð·");
+		String[] levels = new String[5];
+		for(int i = 0; i<5; i++) {
+			levels[i] = "Óðîâåíü " + i;
+		}
+		JList<String> list = new JList<String>(levels);
+		list.setSelectedIndex(0);
+		list.setBounds(543, 0, 212, 115);
+		list.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				int index = list.getSelectedIndex();
+				panel.SetParking(parking.getParking(index));
+				panel.repaint();
+			}
+		});
+		frame.getContentPane().add(list);
+		
+		
+		JButton buttonaddtruck = new JButton("\u041E\u0431\u044B\u0447\u043D\u044B\u0439");
 		buttonaddtruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color color = JColorChooser.showDialog(frame, "ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð²ÐµÑ‚", Color.cyan);
+				Color color = JColorChooser.showDialog(frame, "Îñíîâíîé öâåò", Color.cyan);
 				if(color != null) {
 					truck = new BaseTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK));
-					parking.addTruck(truck, wheel);
+					//parking.addTruck(truck, wheel);
+					parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
 					panel.repaint();
 				}
 			}
 		});
 		buttonaddtruck.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		buttonaddtruck.setBounds(702, 13, 143, 71);
+		buttonaddtruck.setBounds(543, 115, 106, 30);
 		frame.getContentPane().add(buttonaddtruck);
 		
-		JButton buttonaddBase = new JButton("FullÐ‘ÐµÐ½Ð·Ð¾Ð²Ð¾Ð·");
+		JButton buttonaddBase = new JButton("Full");
 		buttonaddBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color color = JColorChooser.showDialog(frame, "ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð²ÐµÑ‚", Color.blue);
+				Color color = JColorChooser.showDialog(frame, "Îñíîâíîé öâåò", Color.blue);
 				if(color != null) {
-					colorDop = JColorChooser.showDialog(frame, "Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚", Color.blue);
+					Color colorDop = JColorChooser.showDialog(frame, "Äîïîëíèòåëüíûé öâåò", Color.blue);
 					if(colorDop != null) {
 						truck = new FullTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK), colorDop, true, true, true);
-						parking.addTruck(truck, wheel);
+						parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
 						panel.repaint();
 					}
 				}
 			}
 		});
 		buttonaddBase.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		buttonaddBase.setBounds(879, 13, 143, 71);
+		buttonaddBase.setBounds(650, 115, 106, 30);
 		frame.getContentPane().add(buttonaddBase);
 		
 		PanelTrack paneltaketruck = new PanelTrack();
-		paneltaketruck.setBounds(718, 395, 246, 128);
+		paneltaketruck.setBounds(543, 422, 246, 128);
 		frame.getContentPane().add(paneltaketruck);
 		paneltaketruck.setLayout(null);
 		
-		JButton buttontaketruck = new JButton("Ð—Ð°Ð±Ñ€Ð°Ñ‚ÑŒ");
+		JButton buttontaketruck = new JButton("\u0417\u0430\u0431\u0440\u0430\u0442\u044C ");
 		buttontaketruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color Colorout = JColorChooser.showDialog(frame, "ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ Ñ†Ð²ÐµÑ‚", Color.cyan);
-				Color dopColor = JColorChooser.showDialog(frame, "Ð”Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚", Color.cyan);
-				if (dopColor == Color.cyan) {
-					truck = new BaseTruck(10, Colorout, 20, wheel = new TwoDiskWheel(Color.BLACK));
-				}else
-					truck = new FullTruck(10, Colorout, 20, wheel = new TwoDiskWheel(Color.BLACK), dopColor, true, true, true);
-				if (parking.getindex(truck) >= 0) {
-					paneltaketruck.RemoveTruck();
-                	paneltaketruck.repaint();
-                	truck = parking.SubTruck(parking.getindex(truck));
-                	paneltaketruck.addTruck(truck);
-                    truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
-                    paneltaketruck.repaint();
-                    panel.repaint();
-				} else
-                {
-                	paneltaketruck.RemoveTruck();
-                	paneltaketruck.repaint();
-                }
+				String str = textField.getText();
+				String str2 = textField_1.getText();
+				if(str != "" && str2 != "") {
+					int index = Integer.parseInt(str);
+					int indexLevel = Integer.parseInt(str2); 
+					truck = parking.getITransport(indexLevel, index);
+	                if (truck != null)
+	                {
+	                	paneltaketruck.RemoveTruck();
+	                	paneltaketruck.repaint();
+	                	tableTruck.push(truck);
+	                	paneltaketruck.addTruck(truck);
+	                	
+	                	pos++;
+	                    truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
+	                    paneltaketruck.repaint();
+	                    panel.repaint();
+	                }
+	                else
+	                {
+	                	paneltaketruck.RemoveTruck();
+	                	paneltaketruck.repaint();
+	                }
+				}
 			}
 		});
-		buttontaketruck.setBounds(795, 352, 89, 31);
+		buttontaketruck.setBounds(552, 388, 89, 23);
 		frame.getContentPane().add(buttontaketruck);
+		
+		JLabel label = new JLabel("\u041F\u043E\u0437\u0438\u0446\u0438\u044F ");
+		label.setBounds(552, 363, 55, 14);
+		frame.getContentPane().add(label);
+		
+		textField = new JTextField();
+		textField.setBounds(670, 360, 38, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JButton btnListTake = new JButton("Ïîëó÷åííûå");
+		btnListTake.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnListTake.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for(int i = 0; i < pos; i++)
+					System.out.println(tableTruck.get(i));
+				System.out.println();
+			}
+		});
+		btnListTake.setBounds(575, 145, 150, 23);
+		frame.getContentPane().add(btnListTake);
+		
+		JLabel label_1 = new JLabel("\u0423\u0440\u043E\u0432\u0435\u043D\u044C");
+		label_1.setBounds(552, 338, 55, 14);
+		frame.getContentPane().add(label_1);
 	}
 }
