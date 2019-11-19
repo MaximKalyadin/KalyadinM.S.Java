@@ -7,6 +7,7 @@ public class BaseTruck extends AbstractTruck {
     private int truckWidth = 100;
     private int truckHeight = 60;
     private IWheel wheel;
+    private Color dopColor;
     
     public BaseTruck(int maxSpeed, Color mainColor, int weight, IWheel wheel) {
     	MaxSpeed = maxSpeed;
@@ -45,13 +46,25 @@ public class BaseTruck extends AbstractTruck {
                 break;
         }
     }
-    public int getPosX() {
+    
+    
+    
+    public Color getDopColor() {
+		return dopColor;
+	}
+    
+    public Color getBaseColor() {
+    	return MainColor;
+    }
+    
+	public int getPosX() {
 		return _startPosX;
 	}
 
 	public int getPosY() {
 		return _startPosY;
 	}
+	@Override
     public void DrawTruck(Graphics g) {
     	wheel.SetPosition(getPosX(), getPosY());
     		//кабина

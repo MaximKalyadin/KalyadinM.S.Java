@@ -6,13 +6,19 @@ import javax.swing.JPanel;
 public class PanelTrack extends JPanel {
 	private ITransport truck;
 	private IWheel wheel;
-	public PanelTrack(ITransport truck, IWheel wheel) {
+	
+	public void addTruck(ITransport truck) {
 		this.truck = truck;
-		this.wheel = wheel;
 	}
+	
+	public void RemoveTruck() {
+		truck = null;
+	}
+	
 	void setTruck(ITransport truck) {
 		this.truck = truck;
 	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
