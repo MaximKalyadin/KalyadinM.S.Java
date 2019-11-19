@@ -27,7 +27,7 @@ public class TruckDesigner {
 	private JFrame frame;
 	private ITransport truck;
 	private IWheel wheel;
-	private MultiLevelParking parking;
+	private MultiLevelParcing parking;
 	private Stack<ITransport> tableTruck = new Stack<ITransport>();
 	private Stack<IWheel> tableWheel = new Stack<IWheel>();
 	int pos = 0;
@@ -65,7 +65,7 @@ public class TruckDesigner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		parking = new MultiLevelParking(5, frame.getWidth(), frame.getHeight() - 100);
+		parking = new MultiLevelParcing(5, frame.getWidth(), frame.getHeight() - 100);
 		
 		PanelParking panel = new PanelParking(parking.getParking(0));
 		panel.setBounds(0, 0, 542, 510);
@@ -79,7 +79,7 @@ public class TruckDesigner {
 		
 		String[] levels = new String[5];
 		for(int i = 0; i<5; i++) {
-			levels[i] = "Уровень " + i;
+			levels[i] = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + i;
 		}
 		JList<String> list = new JList<String>(levels);
 		list.setSelectedIndex(0);
@@ -98,7 +98,7 @@ public class TruckDesigner {
 		JButton buttonaddtruck = new JButton("\u041E\u0431\u044B\u0447\u043D\u044B\u0439");
 		buttonaddtruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color color = JColorChooser.showDialog(frame, "Основной цвет", Color.cyan);
+				Color color = JColorChooser.showDialog(frame, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ", Color.cyan);
 				if(color != null) {
 					truck = new BaseTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK));
 					//parking.addTruck(truck, wheel);
@@ -114,9 +114,9 @@ public class TruckDesigner {
 		JButton buttonaddBase = new JButton("Full");
 		buttonaddBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color color = JColorChooser.showDialog(frame, "Основной цвет", Color.blue);
+				Color color = JColorChooser.showDialog(frame, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ", Color.blue);
 				if(color != null) {
-					Color colorDop = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.blue);
+					Color colorDop = JColorChooser.showDialog(frame, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ", Color.blue);
 					if(colorDop != null) {
 						truck = new FullTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK), colorDop, true, true, true);
 						parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
@@ -175,7 +175,7 @@ public class TruckDesigner {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JButton btnListTake = new JButton("Полученные");
+		JButton btnListTake = new JButton("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		btnListTake.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListTake.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
