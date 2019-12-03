@@ -79,7 +79,7 @@ public class TruckDesigner {
 		
 		String[] levels = new String[5];
 		for(int i = 0; i<5; i++) {
-			levels[i] = "������� " + i;
+			levels[i] = "Уровень " + i;
 		}
 		JList<String> list = new JList<String>(levels);
 		list.setSelectedIndex(0);
@@ -95,10 +95,10 @@ public class TruckDesigner {
 		frame.getContentPane().add(list);
 		
 		
-		JButton buttonaddtruck = new JButton("\u041E\u0431\u044B\u0447\u043D\u044B\u0439");
+		JButton buttonaddtruck = new JButton("Обычный");
 		buttonaddtruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Color color = JColorChooser.showDialog(frame, "�������� ����", Color.cyan);
+				Color color = JColorChooser.showDialog(frame, "Обычный цвет", Color.cyan);
 				if(color != null) {
 					truck = new BaseTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK));
 					//parking.addTruck(truck, wheel);
@@ -114,11 +114,11 @@ public class TruckDesigner {
 		JButton buttonaddBase = new JButton("Full");
 		buttonaddBase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Color color = JColorChooser.showDialog(frame, "�������� ����", Color.blue);
+				Color color = JColorChooser.showDialog(frame, "Обычный цвет", Color.blue);
 				if(color != null) {
-					Color colorDop = JColorChooser.showDialog(frame, "�������������� ����", Color.blue);
+					Color colorDop = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.blue);
 					if(colorDop != null) {
-						truck = new FullTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK), colorDop, true, true, true);
+						truck = new FullTruck(10, color, 20, wheel = new OneDiskWheel(Color.BLACK), colorDop, true, true, true);
 						parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
 						panel.repaint();
 					}
@@ -134,7 +134,7 @@ public class TruckDesigner {
 		frame.getContentPane().add(paneltaketruck);
 		paneltaketruck.setLayout(null);
 		
-		JButton buttontaketruck = new JButton("\u0417\u0430\u0431\u0440\u0430\u0442\u044C ");
+		JButton buttontaketruck = new JButton("Забрать");
 		buttontaketruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String str = textField.getText();
@@ -166,7 +166,7 @@ public class TruckDesigner {
 		buttontaketruck.setBounds(552, 388, 89, 23);
 		frame.getContentPane().add(buttontaketruck);
 		
-		JLabel label = new JLabel("\u041F\u043E\u0437\u0438\u0446\u0438\u044F ");
+		JLabel label = new JLabel("Место");
 		label.setBounds(552, 363, 55, 14);
 		frame.getContentPane().add(label);
 		
@@ -175,19 +175,25 @@ public class TruckDesigner {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JButton btnListTake = new JButton("����������");
+		JButton btnListTake = new JButton("Полученные");
 		btnListTake.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListTake.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for(int i = 0; i < pos; i++)
-					System.out.println(tableTruck.get(i));
+				for(int i = 0; i < pos; i++) {
+					System.out.println(tableTruck.pop());
+				}
+				System.out.println();
+				/*for(int i = 0; i < pos; i++) {
+					System.out.println(tableWheel.pop());
+				}*/
+				pos = 0;
 				System.out.println();
 			}
 		});
 		btnListTake.setBounds(575, 145, 150, 23);
 		frame.getContentPane().add(btnListTake);
 		
-		JLabel label_1 = new JLabel("\u0423\u0440\u043E\u0432\u0435\u043D\u044C");
+		JLabel label_1 = new JLabel("Уровень");
 		label_1.setBounds(552, 338, 55, 14);
 		frame.getContentPane().add(label_1);
 	}

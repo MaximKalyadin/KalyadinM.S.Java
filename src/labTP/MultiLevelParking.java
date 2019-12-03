@@ -27,9 +27,9 @@ public class MultiLevelParking {
 	public ITransport getITransport(int i, int j) {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
-				ITransport ship = parkingstages.get(i).getTruck(j);
+				ITransport truck = parkingstages.get(i).getTruck(j);
 				parkingstages.get(i).SubTruck(j);
-				return ship;
+				return truck;
 			}
 		}
 		return null;
@@ -38,9 +38,9 @@ public class MultiLevelParking {
 	public IWheel getWheel(int i, int j) {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
-				IWheel box = parkingstages.get(i).getWheel(j);
+				IWheel wheel = parkingstages.get(i).getWheel(j);
 				parkingstages.get(i).SubWheel(j);
-				return box;
+				return wheel;
 			}
 		}
 		return null;

@@ -44,7 +44,7 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
     
     public T SubTruck(int index)
     {
-        if (!CheckFreePlace(index))
+        if (CheckFreePlace(index))
         {
             T truck = _places.get(index);
             _places.remove(index);
