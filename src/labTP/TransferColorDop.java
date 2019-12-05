@@ -29,28 +29,28 @@ private PanelTransfer panel;
 				data = (String)supp.getTransferable().getTransferData(DataFlavor.stringFlavor);
 				switch(data) {
 					case "Желтый":
-						truck.SetBaseColor(Color.yellow);
+						truck.setDopColor(Color.yellow);
 						break;
 					case "Черный":
-						truck.SetBaseColor(Color.black);
+						truck.setDopColor(Color.black);
 						break;
 					case "Красный":
-						truck.SetBaseColor(Color.red);
+						truck.setDopColor(Color.red);
 						break;
 					case "Голубой":
-						truck.SetBaseColor(Color.blue);
+						truck.setDopColor(Color.blue);
 						break;
 					case "Зеленый":
-						truck.SetBaseColor(Color.green);
+						truck.setDopColor(Color.green);
 						break;
 					case "Розовый":
-						truck.SetBaseColor(Color.pink);
+						truck.setDopColor(Color.pink);
 						break;
 					case "Малиновый":
-						truck.SetBaseColor(Color.magenta);
+						truck.setDopColor(Color.magenta);
 						break;
 					case "Серый":
-						truck.SetBaseColor(Color.GRAY);
+						truck.setDopColor(Color.GRAY);
 						break;
 				}
 			}catch(Exception e) {

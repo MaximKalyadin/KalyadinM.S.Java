@@ -52,7 +52,7 @@ public class TransferHandlerClass extends TransferHandler {
 					break;
 				case "Full":
 					paneltruck.removeAll();
-					truck = new FullTruck(10, Color.green, 20,Color.yellow, true, true, true);
+					truck = new FullTruck(10, Color.white, 20,Color.white, true, true, true);
 					truck.SetPosition(paneltruck.getX() - 110, paneltruck.getY() , paneltruck.getWidth(), paneltruck.getHeight());
 					paneltruck.AddTruck(truck);
 					break;
