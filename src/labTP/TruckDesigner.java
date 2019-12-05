@@ -178,6 +178,7 @@ public class TruckDesigner {
 				newFrame.frame.setVisible(true);
 				newFrame.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				newFrame.setBaseVariables(panel, parking, list);
+				
 			}
 		});
 		btnAddNewShip.setBounds(575, 170, 150, 23);
