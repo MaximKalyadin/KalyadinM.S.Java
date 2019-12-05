@@ -27,15 +27,15 @@ public class MultiLevelParcing {
 	public ITransport getITransport(int i, int j) {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
-				ITransport ship = parkingstages.get(i).getTruck(j);
+				ITransport wheel = parkingstages.get(i).getTruck(j);
 				parkingstages.get(i).SubTruck(j);
-				return ship;
+				return wheel;
 			}
 		}
 		return null;
 	}
 	
-	public IWheel getWheel(int i, int j) {
+	public IWheel getIWheel(int i, int j) {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
 				IWheel box = parkingstages.get(i).getWheel(j);

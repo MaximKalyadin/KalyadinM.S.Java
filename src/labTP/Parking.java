@@ -21,18 +21,33 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
         PictureHeight = pictureHeight;
     }
 
-    public int addTruck(T truck, G wheel)
+    public int addTruck(T truck)
     {
-    	for(int i = 0; i < size; i++) {
-    		if(!CheckFreePlace(i)) {
-    			_places.put(i, truck);
-    			_places.get(i).SetPosition(i / 5 * _placeSizeWidth,  i  * _placeSizeHeight + 10, PictureWidth, PictureHeight);
-    			_placesWithWheel.put(i, wheel);
-    			_placesWithWheel.get(i).SetPosition(_places.get(i).getPosX(), _places.get(i).getPosY());
-    			return i;
-    		}
-    	}
-    	return -1;
+    	for (int i = 0; i < size; i++)
+        {
+            if (!CheckFreePlace(i))
+            {
+                _places.put(i, truck);
+                _places.get(i).SetPosition(20 + i / 5 * _placeSizeWidth,  i % 5 * _placeSizeHeight + 50, PictureWidth,
+                        PictureHeight);
+                return i;
+            }
+        }
+        return -1;
+    }
+    public int addTruckall(T truck, G wheel) {
+    	for (int i = 0; i < size; i++)
+        {
+            if (!CheckFreePlace(i))
+            {
+                _places.put(i, truck);
+                _places.get(i).SetPosition(20 + i / 5 * _placeSizeWidth,  i % 5 * _placeSizeHeight + 50, PictureWidth, PictureHeight);
+                _placesWithWheel.put(i, wheel);
+                _placesWithWheel.get(i).SetPosition(_places.get(i).getPosX(), _places.get(i).getPosY());
+                return i;
+            }
+        }
+        return -1;
     }
     public T getTruck(int index) {
     	return _places.get(index);
@@ -75,7 +90,9 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
         {
             if (CheckFreePlace(i))
             {
-            	_places.get(i).DrawTruck(g);
+                _places.get(i).DrawTruck(g);
+                if(_placesWithWheel.containsKey(i))
+                	_placesWithWheel.get(i).Draw(g, Wenum.wheel2);
             }
         }
     }

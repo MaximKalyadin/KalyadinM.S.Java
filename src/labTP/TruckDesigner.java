@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
@@ -77,13 +78,14 @@ public class TruckDesigner {
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		String[] levels = new String[5];
+		DefaultListModel<String> dlm = new DefaultListModel<String>();
 		for(int i = 0; i<5; i++) {
-			levels[i] = "Уровень " + i;
+			dlm.addElement("Уровень" + i);
 		}
-		JList<String> list = new JList<String>(levels);
+		JList<String> list = new JList<String>();
+		list.setModel(dlm);
 		list.setSelectedIndex(0);
-		list.setBounds(543, 0, 212, 115);
+		list.setBounds(543, 0, 144, 115);
 		list.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -94,40 +96,6 @@ public class TruckDesigner {
 		});
 		frame.getContentPane().add(list);
 		
-		
-		JButton buttonaddtruck = new JButton("Обычный");
-		buttonaddtruck.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Color color = JColorChooser.showDialog(frame, "Обычный цвет", Color.cyan);
-				if(color != null) {
-					truck = new BaseTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK));
-					//parking.addTruck(truck, wheel);
-					parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
-					panel.repaint();
-				}
-			}
-		});
-		buttonaddtruck.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		buttonaddtruck.setBounds(543, 115, 106, 30);
-		frame.getContentPane().add(buttonaddtruck);
-		
-		JButton buttonaddBase = new JButton("Full");
-		buttonaddBase.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color color = JColorChooser.showDialog(frame, "Обычный цвет", Color.blue);
-				if(color != null) {
-					Color colorDop = JColorChooser.showDialog(frame, "Дополнительный цвет", Color.blue);
-					if(colorDop != null) {
-						truck = new FullTruck(10, color, 20, wheel = new OneDiskWheel(Color.BLACK), colorDop, true, true, true);
-						parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
-						panel.repaint();
-					}
-				}
-			}
-		});
-		buttonaddBase.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		buttonaddBase.setBounds(650, 115, 106, 30);
-		frame.getContentPane().add(buttonaddBase);
 		
 		PanelTrack paneltaketruck = new PanelTrack();
 		paneltaketruck.setBounds(543, 422, 246, 128);
@@ -147,11 +115,20 @@ public class TruckDesigner {
 	                {
 	                	paneltaketruck.RemoveTruck();
 	                	paneltaketruck.repaint();
+	                	wheel = parking.getIWheel(indexLevel, index);
 	                	tableTruck.push(truck);
+	                	
+	                	if(truck == null) {
+	                		truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
+	                		paneltaketruck.addTruck(truck);
+	                	}else {
+	                		truck.SetPosition(15, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
+	                		paneltaketruck.AddTruck(truck, wheel);
+	                		tableWheel.push(wheel);
+	                	}
 	                	paneltaketruck.addTruck(truck);
 	                	
 	                	pos++;
-	                    truck.SetPosition(16, 50, paneltaketruck.getWidth(), paneltaketruck.getHeight());
 	                    paneltaketruck.repaint();
 	                    panel.repaint();
 	                }
@@ -183,9 +160,6 @@ public class TruckDesigner {
 					System.out.println(tableTruck.pop());
 				}
 				System.out.println();
-				/*for(int i = 0; i < pos; i++) {
-					System.out.println(tableWheel.pop());
-				}*/
 				pos = 0;
 				System.out.println();
 			}
@@ -196,5 +170,17 @@ public class TruckDesigner {
 		JLabel label_1 = new JLabel("Уровень");
 		label_1.setBounds(552, 338, 55, 14);
 		frame.getContentPane().add(label_1);
+		
+		JButton btnAddNewShip = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
+		btnAddNewShip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TransferDisigned newFrame = new TransferDisigned();
+				newFrame.frame.setVisible(true);
+				newFrame.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				newFrame.setBaseVariables(panel, parking, list);
+			}
+		});
+		btnAddNewShip.setBounds(575, 170, 150, 23);
+		frame.getContentPane().add(btnAddNewShip);
 	}
 }
