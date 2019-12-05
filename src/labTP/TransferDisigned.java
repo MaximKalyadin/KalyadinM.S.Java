@@ -55,6 +55,7 @@ public class TransferDisigned {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Окно добавления");
 		frame.setBounds(100, 100, 646, 325);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

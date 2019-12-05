@@ -62,6 +62,7 @@ public class TruckDesigner {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Парковка");
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -171,7 +172,7 @@ public class TruckDesigner {
 		label_1.setBounds(552, 338, 55, 14);
 		frame.getContentPane().add(label_1);
 		
-		JButton btnAddNewShip = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
+		JButton btnAddNewShip = new JButton("Добавить");
 		btnAddNewShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TransferDisigned newFrame = new TransferDisigned();
