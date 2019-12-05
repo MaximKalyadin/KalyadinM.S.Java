@@ -34,27 +34,26 @@ public class TransferHandlerClass extends TransferHandler {
 			switch(data) {
 				case "Обычные":
 						paneltruck.removeWheel();
-						paneltruck.AddWheel(new OneDiskWheel(Color.yellow));
-					
+						paneltruck.AddWheel(new ClassWheel(Color.black));
 					break;
 				case "Круглые":
 						paneltruck.removeWheel();
-						paneltruck.AddWheel(new TwoDiskWheel(Color.green));
+						paneltruck.AddWheel(new OneDiskWheel(Color.black));
 					break;
 				case "Квадратные":
 						paneltruck.removeWheel();
-						paneltruck.AddWheel(new ClassWheel(Color.black));
+						paneltruck.AddWheel(new TwoDiskWheel(Color.black));
 					break;
 				case "Обычный":
 					paneltruck.removeAll();
-					truck = new BaseTruck(10, Color.green, 20);
-					truck.SetPosition(paneltruck.getX() - 90, paneltruck.getY() + 40, paneltruck.getWidth(), paneltruck.getHeight());
+					truck = new BaseTruck(10, Color.white, 20);
+					truck.SetPosition(paneltruck.getX() - 90, paneltruck.getY() , paneltruck.getWidth(), paneltruck.getHeight());
 					paneltruck.AddTruck(truck);
 					break;
 				case "Full":
 					paneltruck.removeAll();
 					truck = new FullTruck(10, Color.green, 20,Color.yellow, true, true, true);
-					truck.SetPosition(paneltruck.getX() - 110, paneltruck.getY() + 40, paneltruck.getWidth(), paneltruck.getHeight());
+					truck.SetPosition(paneltruck.getX() - 110, paneltruck.getY() , paneltruck.getWidth(), paneltruck.getHeight());
 					paneltruck.AddTruck(truck);
 					break;
 			}

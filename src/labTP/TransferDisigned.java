@@ -60,6 +60,7 @@ public class TransferDisigned {
 		frame.getContentPane().setLayout(null);
 		
 		panelTruck = new PanelTransfer();
+		panelTruck.setBackground(Color.WHITE);
 		panelTruck.setBounds(121, 34, 212, 117);
 		panelTruck.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panelTruck.setTransferHandler(new TransferHandlerClass());
@@ -119,11 +120,11 @@ public class TransferDisigned {
 		frame.getContentPane().add(labelColor);
 		
 		JScrollPane scrollPaneColors = new JScrollPane();
-		scrollPaneColors.setBounds(483, 43, 103, 60);
+		scrollPaneColors.setBounds(483, 43, 103, 164);
 		frame.getContentPane().add(scrollPaneColors);
 		
 		JList<String> listColors = new JList<String>();
-		scrollPaneColors.setRowHeaderView(listColors);
+		scrollPaneColors.setViewportView(listColors);
 		DefaultListModel<String> dlmColor = new DefaultListModel<String>();
 		dlmColor.addElement("Желтый");
 		dlmColor.addElement("Черный");
@@ -137,6 +138,7 @@ public class TransferDisigned {
 		listColors.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listColors.setDragEnabled(true);
 		listColors.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
 		
 		
 		JButton btnAccept = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");

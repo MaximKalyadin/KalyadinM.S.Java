@@ -28,7 +28,7 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
             if (!CheckFreePlace(i))
             {
                 _places.put(i, truck);
-                _places.get(i).SetPosition(20 + i / 5 * _placeSizeWidth,  i % 5 * _placeSizeHeight + 50, PictureWidth,
+                _places.get(i).SetPosition(i / 5 * _placeSizeWidth,  i % 5 * _placeSizeHeight + 10, PictureWidth,
                         PictureHeight);
                 return i;
             }
@@ -41,7 +41,7 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
             if (!CheckFreePlace(i))
             {
                 _places.put(i, truck);
-                _places.get(i).SetPosition(20 + i / 5 * _placeSizeWidth,  i % 5 * _placeSizeHeight + 50, PictureWidth, PictureHeight);
+                _places.get(i).SetPosition(i / 5 * _placeSizeWidth,  i % 5 * _placeSizeHeight + 10, PictureWidth, PictureHeight);
                 _placesWithWheel.put(i, wheel);
                 _placesWithWheel.get(i).SetPosition(_places.get(i).getPosX(), _places.get(i).getPosY());
                 return i;

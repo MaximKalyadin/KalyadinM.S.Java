@@ -164,7 +164,7 @@ public class TruckDesigner {
 				System.out.println();
 			}
 		});
-		btnListTake.setBounds(575, 145, 150, 23);
+		btnListTake.setBounds(537, 146, 150, 23);
 		frame.getContentPane().add(btnListTake);
 		
 		JLabel label_1 = new JLabel("Уровень");
@@ -181,7 +181,7 @@ public class TruckDesigner {
 				
 			}
 		});
-		btnAddNewShip.setBounds(575, 170, 150, 23);
+		btnAddNewShip.setBounds(537, 169, 150, 23);
 		frame.getContentPane().add(btnAddNewShip);
 	}
 }

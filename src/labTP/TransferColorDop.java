@@ -22,7 +22,7 @@ private PanelTransfer panel;
 	public boolean importData(TransferSupport supp) {
 		if(!supp.isDrop())
 			return false;
-		BaseTruck truck = (BaseTruck)panel.getTruck();
+		FullTruck truck = (FullTruck)panel.getTruck();
 		String data;
 		if(truck != null) {
 			try {
