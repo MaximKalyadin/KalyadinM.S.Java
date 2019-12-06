@@ -29,7 +29,7 @@ public class PanelTrack extends JPanel {
 		if(truck != null && wheel != null) {
 			truck.DrawTruck(g);
 			wheel.SetPosition(truck.getPosX(), truck.getPosY());
-			wheel.Draw(g, Wenum.wheel3);
+			wheel.Draw(g, Wenum.wheel2);
 		}else if(truck != null)
 			truck.DrawTruck(g);
 	}

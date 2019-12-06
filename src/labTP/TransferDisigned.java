@@ -62,13 +62,13 @@ public class TransferDisigned {
 		
 		panelTruck = new PanelTransfer();
 		panelTruck.setBackground(Color.WHITE);
-		panelTruck.setBounds(121, 34, 212, 117);
+		panelTruck.setBounds(121, 34, 234, 137);
 		panelTruck.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panelTruck.setTransferHandler(new TransferHandlerClass());
 		frame.getContentPane().add(panelTruck);
 		
 		JList<String> listTruck = new JList<String>();
-		listTruck.setBounds(10, 43, 99, 43);
+		listTruck.setBounds(10, 43, 99, 61);
 		listTruck.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listTruck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultListModel<String> dlm = new DefaultListModel<String>();
@@ -83,7 +83,7 @@ public class TransferDisigned {
 		frame.getContentPane().add(labelTypeOfTruck);
 		
 		JLabel labelMainColor = new JLabel("\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u0446\u0432\u0435\u0442");
-		labelMainColor.setBounds(149, 164, 162, 23);
+		labelMainColor.setBounds(149, 177, 162, 23);
 		labelMainColor.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMainColor.setBorder(new LineBorder(new Color(0, 0, 0)));
 		TransferColorMain thMainColor = new TransferColorMain();
@@ -92,7 +92,7 @@ public class TransferDisigned {
 		frame.getContentPane().add(labelMainColor);
 		
 		JLabel labelDopColor = new JLabel("\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0446\u0432\u0435\u0442");
-		labelDopColor.setBounds(149, 200, 162, 23);
+		labelDopColor.setBounds(149, 213, 162, 23);
 		labelDopColor.setHorizontalAlignment(SwingConstants.CENTER);
 		labelDopColor.setBorder(new LineBorder(new Color(0, 0, 0)));
 		TransferColorDop thDopColor = new TransferColorDop();
@@ -156,7 +156,7 @@ public class TransferDisigned {
 				frame.dispose();
 			}
 		});
-		btnAccept.setBounds(10, 94, 99, 23);
+		btnAccept.setBounds(10, 112, 99, 23);
 		frame.getContentPane().add(btnAccept);
 		
 		JButton buttonCancel = new JButton("\u041E\u0442\u043C\u0435\u043D\u0430");
@@ -166,7 +166,7 @@ public class TransferDisigned {
 				frame.dispose();
 			}
 		});
-		buttonCancel.setBounds(10, 121, 99, 23);
+		buttonCancel.setBounds(10, 148, 99, 23);
 		frame.getContentPane().add(buttonCancel);
 	}
 
