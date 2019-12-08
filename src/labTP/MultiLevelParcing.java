@@ -38,9 +38,9 @@ public class MultiLevelParcing {
 	public IWheel getIWheel(int i, int j) {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
-				IWheel box = parkingstages.get(i).getWheel(j);
+				IWheel wheel = parkingstages.get(i).getWheel(j);
 				parkingstages.get(i).SubWheel(j);
-				return box;
+				return wheel;
 			}
 		}
 		return null;

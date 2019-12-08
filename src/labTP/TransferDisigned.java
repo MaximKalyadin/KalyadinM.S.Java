@@ -140,8 +140,6 @@ public class TransferDisigned {
 		listColors.setDragEnabled(true);
 		listColors.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		
-		
 		JButton btnAccept = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
 		btnAccept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
