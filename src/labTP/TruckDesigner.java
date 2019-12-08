@@ -101,7 +101,6 @@ public class TruckDesigner {
 				Color color = JColorChooser.showDialog(frame, "Обычный цвет", Color.cyan);
 				if(color != null) {
 					truck = new BaseTruck(10, color, 20, wheel = new TwoDiskWheel(Color.BLACK));
-					//parking.addTruck(truck, wheel);
 					parking.getParking(list.getSelectedIndex()).addTruck(truck, wheel);
 					panel.repaint();
 				}
@@ -183,9 +182,6 @@ public class TruckDesigner {
 					System.out.println(tableTruck.pop());
 				}
 				System.out.println();
-				/*for(int i = 0; i < pos; i++) {
-					System.out.println(tableWheel.pop());
-				}*/
 				pos = 0;
 				System.out.println();
 			}
