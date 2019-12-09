@@ -6,14 +6,12 @@ import java.awt.Graphics;
 public class BaseTruck extends AbstractTruck {
     private int truckWidth = 100;
     private int truckHeight = 60;
-    private IWheel wheel;
     private Color dopColor;
     
-    public BaseTruck(int maxSpeed, Color mainColor, int weight, IWheel wheel) {
+    public BaseTruck(int maxSpeed, Color mainColor, int weight) {
     	MaxSpeed = maxSpeed;
         MainColor = mainColor;
         Weight = weight;
-        this.wheel = wheel;
     }
     @Override
     public void MoveTransport(Tenum direction) {
@@ -53,9 +51,17 @@ public class BaseTruck extends AbstractTruck {
 	public int getPosY() {
 		return _startPosY;
 	}
+	
+	@Override
+    public String toString() {
+   	 return "BaseTruck";
+    }
+	
+	public void SetBaseColor(Color color) {
+    	MainColor = color;
+    }
 	@Override
     public void DrawTruck(Graphics g) {
-    	wheel.SetPosition(getPosX(), getPosY());
     		//кабина
 	    	g.setColor(Color.BLACK);
 	    	g.drawRect(_startPosX + 100, _startPosY - 6, 50, 55);
@@ -73,8 +79,6 @@ public class BaseTruck extends AbstractTruck {
 	        g.fillRect(_startPosX + 143, _startPosY + 35, 7, 7);
 	        //платформа 
 	    	g.setColor(Color.BLACK);
-	        g.fillRect(_startPosX + 15, _startPosY + 34, 85, 10);  
-	    	wheel.Draw(g, Wenum.wheel2);
+	        g.fillRect(_startPosX + 15, _startPosY + 34, 85, 10);
     }
-    
 }

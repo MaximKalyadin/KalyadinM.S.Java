@@ -9,23 +9,21 @@ public class FullTruck extends BaseTruck{
 	 public boolean Stairs;
 	 public boolean Strip;
 	 
-	 public FullTruck(int maxSpeed, Color mainColor, int weight, IWheel wheel, Color dopcolor, boolean vat, boolean stairs, boolean strip) {
-		 super(maxSpeed, mainColor, weight, wheel);
+	 public FullTruck(int maxSpeed, Color mainColor, int weight, Color dopcolor, boolean vat, boolean stairs, boolean strip) {
+		 super(maxSpeed, mainColor, weight);
 		 DopColor = dopcolor;
 		 Vat = vat;
 		 Stairs = stairs;
 		 Strip = strip;
 	 }
 	 
-	 
-	 
-	 public Color getDopColor() {
-		return DopColor;
-	}
-
-	 public Color getBaseColor() {
-		 return MainColor;
-	 }
+	 public void setBaseColor(Color color) {
+	    	MainColor = color;
+	    }
+	    
+	    public void setDopColor(Color color) {
+	    	DopColor = color;
+	    }
 
 	@Override
 	 public void DrawTruck(Graphics g) {
@@ -58,7 +56,8 @@ public class FullTruck extends BaseTruck{
 	            g.fillRect(_startPosX + 16, _startPosY + 10, 80, 10);
 	        }
 	 }
-	 
-	 
-	 
+	 @Override
+	    public String toString() {
+	   	 return "FullTruck";
+	    }
 }
