@@ -13,6 +13,19 @@ public class BaseTruck extends AbstractTruck {
         MainColor = mainColor;
         Weight = weight;
     }
+    public BaseTruck(String config) {
+    	String[] strs = config.split(";");
+        if (strs.length == 2)
+        {
+            MaxSpeed = Integer.parseInt(strs[0]);
+            MainColor = new Color(Integer.parseInt(strs[1]));
+            Weight = Integer.parseInt(strs[0]);
+        }
+    }
+    
+    public String getConfig() {
+    	return MaxSpeed + ";" + MainColor.getRGB() + ";" + Weight;
+    }
     @Override
     public void MoveTransport(Tenum direction) {
     	float step =  MaxSpeed * 100 / Weight;

@@ -48,4 +48,8 @@ public class OneDiskWheel implements IWheel{
     	}
     	DrawWheel(g, k);
     }
+    @Override
+	public String toString() {
+		return "OneDiskWheel";
+	}
 }

@@ -16,7 +16,22 @@ public class FullTruck extends BaseTruck{
 		 Stairs = stairs;
 		 Strip = strip;
 	 }
-	 
+	 public FullTruck(String config) {
+	    super(config);
+	    String[] strs = config.split(";");
+	    if (strs.length == 6) {
+	        MaxSpeed = Integer.parseInt(strs[0]);
+	        MainColor = new Color(Integer.parseInt(strs[1]));
+	        Weight = Integer.parseInt(strs[2]);
+	        DopColor = new Color(Integer.parseInt(strs[3]));
+	        Vat = Boolean.parseBoolean(strs[4]);
+	        Stairs = Boolean.parseBoolean(strs[5]);
+	        Strip = Boolean.parseBoolean(strs[6]);
+	    }
+	 }
+	 public String getConfig() {
+	    	return super.getConfig() + ";" + DopColor.getRGB() + ";" + Vat + ";" + Stairs + ";" + Strip;
+	    }
 	 public void setBaseColor(Color color) {
 	    	MainColor = color;
 	    }

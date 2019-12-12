@@ -42,6 +42,9 @@ public class ClassWheel implements IWheel{
     	}
     	DrawWheel(g, k);
     }
-    
+    @Override
+	public String toString() {
+		return "ClassWheel";
+	}
     
 }

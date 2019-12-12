@@ -7,4 +7,5 @@ public interface ITransport {
     void DrawTruck(Graphics g);
     int getPosX();
     int getPosY();
+    String getConfig();
 }
