@@ -172,8 +172,8 @@ public class TruckDesigner {
 		label_1.setBounds(552, 338, 55, 14);
 		frame.getContentPane().add(label_1);
 		
-		JButton btnAddNewShip = new JButton("Добавить");
-		btnAddNewShip.addActionListener(new ActionListener() {
+		JButton btnAddNewTruck = new JButton("Добавить");
+		btnAddNewTruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TransferDisigned newFrame = new TransferDisigned();
 				newFrame.frame.setVisible(true);
@@ -182,7 +182,7 @@ public class TruckDesigner {
 				
 			}
 		});
-		btnAddNewShip.setBounds(537, 169, 150, 23);
-		frame.getContentPane().add(btnAddNewShip);
+		btnAddNewTruck.setBounds(537, 169, 150, 23);
+		frame.getContentPane().add(btnAddNewTruck);
 	}
 }

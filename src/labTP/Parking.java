@@ -71,9 +71,9 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
     public G SubWheel(int index) {
         if (_placesWithWheel.containsKey(index))
         {
-            G box = _placesWithWheel.get(index);
+            G wheel = _placesWithWheel.get(index);
             _placesWithWheel.remove(index);
-            return box;
+            return wheel;
         }
         return null;
     }
