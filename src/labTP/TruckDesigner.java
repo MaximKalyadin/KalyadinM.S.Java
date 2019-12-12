@@ -208,7 +208,7 @@ public class TruckDesigner {
 				int result = fc.showOpenDialog(null);
 				if(result == fc.APPROVE_OPTION) {
 					if(parking.LoadData(fc.getSelectedFile().getPath())) {
-						JOptionPane.showMessageDialog(null, "!");
+						JOptionPane.showMessageDialog(null, "Успешно!");
 						panel.SetParking(parking.getParking(list.getSelectedIndex()));
 						panel.repaint();
 					}else
