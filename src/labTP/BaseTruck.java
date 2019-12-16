@@ -15,7 +15,7 @@ public class BaseTruck extends AbstractTruck {
     }
     public BaseTruck(String config) {
     	String[] strs = config.split(";");
-        if (strs.length == 2)
+        if (strs.length == 3)
         {
             MaxSpeed = Integer.parseInt(strs[0]);
             MainColor = new Color(Integer.parseInt(strs[1]));

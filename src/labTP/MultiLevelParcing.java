@@ -84,44 +84,51 @@ public class MultiLevelParcing {
 
     public boolean LoadData(String filename)
     {
-        String buff = "";
+    	String buff = "";
         try (FileReader fr = new FileReader(filename))
         {
         	BufferedReader reader = new BufferedReader(fr);
             buff = reader.readLine();
-            int LevelNumber;
-            if (buff.split(":")[0].equals("Level"))
+            if (buff.split(":")[0].equals("CountLevels"))
             {
-            	LevelNumber = Integer.parseInt(buff.split(":")[1]);
-            	parkingstages.set(LevelNumber, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
+                int countLevel = Integer.parseInt(buff.split(":")[1]);
+                if (parkingstages != null)
+                	parkingstages.clear();
+                parkingstages = new ArrayList<Parking<ITransport, IWheel>>(countLevel);
             }
             else
                 return false;
+            int count = -1;
             while (reader.ready())
             {
                 buff = reader.readLine();
                 ITransport truck = null;
                 IWheel wheel = null;
-                if (buff.split(":")[1].equals("BaseTruck"))
+                if (buff.equals("Level"))
                 {
-                    truck = new BaseTruck(buff.split(":")[2]);
+                    count++;
+                    parkingstages.add(new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
+                    continue;
+                }else if (buff.split(":")[1].equals("BaseTruck"))
+                {
+                	truck = new BaseTruck(buff.split(":")[2]);
                     if(buff.split(":")[2].equals("ClassWheel"))
                     	wheel = new ClassWheel(Color.black);
                     else if (buff.split(":")[2].equals("OneDiskWheel"))
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(LevelNumber).addTruck(truck, Integer.parseInt(buff.split(":")[0]));
-                }else if (buff.split(":")[1].equals("FullTruck"))
+                    parkingstages.get(count).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                }else if (buff.split(":")[1].equals("ContainerShipLuxe"))
                 {
-                    truck = new FullTruck(buff.split(":")[3]);
+                	truck = new BaseTruck(buff.split(":")[2]);
                     if(buff.split(":")[2].equals("ClassWheel"))
                     	wheel = new ClassWheel(Color.black);
                     else if (buff.split(":")[2].equals("OneDiskWheel"))
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                    parkingstages.get(count).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }
             }
         }catch(IOException e) {
@@ -167,8 +174,8 @@ public class MultiLevelParcing {
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(LevelNumber).addTruck(truck, Integer.parseInt(buff.split(":")[0]));
-                }else if (buff.split(":")[1].equals("ContainerShipLuxe"))
+                    parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                }else if (buff.split(":")[1].equals("FullTruck"))
                 {
                     truck = new FullTruck(buff.split(":")[3]);
                     if(buff.split(":")[2].equals("ClassWheel"))

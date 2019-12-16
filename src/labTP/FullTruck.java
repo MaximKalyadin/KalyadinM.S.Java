@@ -19,7 +19,7 @@ public class FullTruck extends BaseTruck{
 	 public FullTruck(String config) {
 	    super(config);
 	    String[] strs = config.split(";");
-	    if (strs.length == 6) {
+	    if (strs.length == 7) {
 	        MaxSpeed = Integer.parseInt(strs[0]);
 	        MainColor = new Color(Integer.parseInt(strs[1]));
 	        Weight = Integer.parseInt(strs[2]);
