@@ -19,7 +19,7 @@ public class BaseTruck extends AbstractTruck {
         {
             MaxSpeed = Integer.parseInt(strs[0]);
             MainColor = new Color(Integer.parseInt(strs[1]));
-            Weight = Integer.parseInt(strs[0]);
+            Weight = Integer.parseInt(strs[2]);
         }
     }
     
@@ -63,13 +63,7 @@ public class BaseTruck extends AbstractTruck {
 
 	public int getPosY() {
 		return _startPosY;
-	}
-	
-	@Override
-    public String toString() {
-   	 return "BaseTruck";
-    }
-	
+	}	
 	public void SetBaseColor(Color color) {
     	MainColor = color;
     }
@@ -93,5 +87,9 @@ public class BaseTruck extends AbstractTruck {
 	        //платформа 
 	    	g.setColor(Color.BLACK);
 	        g.fillRect(_startPosX + 15, _startPosY + 34, 85, 10);
+    }
+	@Override
+    public String toString() {
+   	 return "BaseTruck";
     }
 }
