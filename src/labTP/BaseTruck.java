@@ -45,18 +45,7 @@ public class BaseTruck extends AbstractTruck {
                 }
                 break;
         }
-    }
-    
-    
-    
-    public Color getDopColor() {
-		return dopColor;
-	}
-    
-    public Color getBaseColor() {
-    	return MainColor;
-    }
-    
+    }    
 	public int getPosX() {
 		return _startPosX;
 	}
