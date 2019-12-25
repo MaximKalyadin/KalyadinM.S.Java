@@ -49,6 +49,28 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
         }
         return -1;
     }
+    public int addTruck(T truck, int index)
+    {
+            if (!CheckFreePlace(index))
+            {
+                _places.put(index, truck);
+                _places.get(index).SetPosition(index / 5 * _placeSizeWidth,  index % 5 * _placeSizeHeight + 10, PictureWidth,
+                        PictureHeight);
+                return index;
+            }
+        return -1;
+    }
+    public int addTruckall(T truck, G wheel, int index) {
+            if (!CheckFreePlace(index))
+            {
+                _places.put(index, truck);
+                _places.get(index).SetPosition(index / 5 * _placeSizeWidth,  index % 5 * _placeSizeHeight + 10, PictureWidth, PictureHeight);
+                _placesWithWheel.put(index, wheel);
+                _placesWithWheel.get(index).SetPosition(_places.get(index).getPosX(), _places.get(index).getPosY());
+                return index;
+            }
+        return -1;
+    }
     public T getTruck(int index) {
     	return _places.get(index);
     }
