@@ -225,7 +225,7 @@ public class TruckDesigner {
 				fc.setFileFilter(filter);
 				int result = fc.showSaveDialog(null);
 				if(result == fc.APPROVE_OPTION) {
-					if(parking.SaveData(fc.getSelectedFile().getPath(), list.getSelectedIndex())) {
+					if(parking.SaveData(fc.getSelectedFile().getPath())) {
 						JOptionPane.showMessageDialog(null, "Успешно!");
 					}else
 						JOptionPane.showMessageDialog(null, "Не успешно!");

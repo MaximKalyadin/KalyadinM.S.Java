@@ -23,7 +23,7 @@ public class MultiLevelParcing {
 		this.pictureHeight = pictureHeight;
 		this.pictureWidth = pictureWidth;
 	}
-	public boolean SaveData(String filename, int index)
+	public boolean SaveData(String filename)
     {
 		try(FileWriter writer = new FileWriter(filename)){
 			writer.write("CountLevels:" + parkingstages.size() + System.getProperty("line.separator"));
@@ -54,12 +54,13 @@ public class MultiLevelParcing {
 		return true;
     }
 	
-	public boolean SaveDataLvl(String filename, int index)
+	public boolean SaveDataLvl(String filename, int ind)
     {
+		if(ind <= -1 && ind >= parkingstages.size())
+			return false;
 		try(FileWriter writer = new FileWriter(filename)){
-			writer.write("Level:" + index + System.getProperty("line.separator"));
-			if(index > -1 && index < parkingstages.size()) {
-				Parking<ITransport, IWheel> current = parkingstages.get(index);
+			writer.write("Level:" + ind + System.getProperty("line.separator"));			
+				Parking<ITransport, IWheel> current = parkingstages.get(ind);
 				for(int i = 0; i < countPlaces; i++) {
 					ITransport truck = current.getTruck(i);
 					IWheel wheel = current.getWheel(i);
@@ -75,7 +76,6 @@ public class MultiLevelParcing {
 						}
 					}
 				}
-			}
 		}catch(IOException e) {
 			return false;
 		}
@@ -145,6 +145,7 @@ public class MultiLevelParcing {
 		}
 		return null;
 	}
+	
 	public boolean LoadDataLvl(String filename)
     {
         String buff = "";
@@ -152,11 +153,11 @@ public class MultiLevelParcing {
         {
         	BufferedReader reader = new BufferedReader(fr);
             buff = reader.readLine();
-            int LevelNumber;
+            int Level;
             if (buff.split(":")[0].equals("Level"))
             {
-            	LevelNumber = Integer.parseInt(buff.split(":")[1]);
-            	parkingstages.set(LevelNumber, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
+            	Level = Integer.parseInt(buff.split(":")[1]);
+            	parkingstages.set(Level, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
             }
             else
                 return false;
@@ -174,7 +175,7 @@ public class MultiLevelParcing {
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                    parkingstages.get(Level).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }else if (buff.split(":")[1].equals("FullTruck"))
                 {
                     truck = new FullTruck(buff.split(":")[3]);
@@ -184,7 +185,7 @@ public class MultiLevelParcing {
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                    parkingstages.get(Level).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }
             }
         }catch(IOException e) {
