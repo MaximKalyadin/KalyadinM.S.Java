@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -19,9 +20,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+
+import javax.swing.JOptionPane;
 
 public class TruckDesigner {
 
@@ -34,6 +41,7 @@ public class TruckDesigner {
 	int pos = 0;
 	private JTextField textField_1;
 	private JTextField textField;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -179,10 +187,87 @@ public class TruckDesigner {
 				newFrame.frame.setVisible(true);
 				newFrame.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				newFrame.setBaseVariables(panel, parking, list);
-				
 			}
 		});
 		btnAddNewTruck.setBounds(537, 169, 150, 23);
 		frame.getContentPane().add(btnAddNewTruck);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenu menu = new JMenu("\u0424\u0430\u0439\u043B");
+		menuBar.add(menu);
+		
+		JMenuItem menuLoad = new JMenuItem("\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C");
+		menuLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", "txt");
+				fc.setFileFilter(filter);
+				int result = fc.showOpenDialog(null);
+				if(result == fc.APPROVE_OPTION) {
+					if(parking.LoadData(fc.getSelectedFile().getPath())) {
+						JOptionPane.showMessageDialog(null, "Успешно!");
+						panel.SetParking(parking.getParking(list.getSelectedIndex()));
+						panel.repaint();
+					}else
+						JOptionPane.showMessageDialog(null, "Не успешно!");
+				}
+			}
+		});
+		menu.add(menuLoad);
+		
+		JMenuItem menuSave = new JMenuItem("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
+		menuSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", "txt");
+				fc.setFileFilter(filter);
+				int result = fc.showSaveDialog(null);
+				if(result == fc.APPROVE_OPTION) {
+					if(parking.SaveData(fc.getSelectedFile().getPath())) {
+						JOptionPane.showMessageDialog(null, "Успешно!");
+					}else
+						JOptionPane.showMessageDialog(null, "Не успешно!");
+				}
+			}
+		});
+		menu.add(menuSave);
+		
+		JMenuItem menuSaveLvl = new JMenuItem("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C");
+		menuSaveLvl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", "txt");
+				fc.setFileFilter(filter);
+				int result = fc.showSaveDialog(null);
+				if(result == fc.APPROVE_OPTION) {
+					if(parking.SaveDataLvl(fc.getSelectedFile().getPath(), list.getSelectedIndex())) {
+						JOptionPane.showMessageDialog(null, "Успешно!");
+					}else
+						JOptionPane.showMessageDialog(null, "Не успешно!");
+				}
+			}
+		});
+		menu.add(menuSaveLvl);
+		
+		JMenuItem menuLoadLvl = new JMenuItem("\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0443\u0440\u043E\u0432\u0435\u043D\u044C");
+		menuLoadLvl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", "txt");
+				fc.setFileFilter(filter);
+				int result = fc.showOpenDialog(null);
+				if(result == fc.APPROVE_OPTION) {
+					if(parking.LoadDataLvl(fc.getSelectedFile().getPath())) {
+						JOptionPane.showMessageDialog(null, "Успешно!");
+						panel.SetParking(parking.getParking(list.getSelectedIndex()));
+						panel.repaint();
+					}else
+						JOptionPane.showMessageDialog(null, "Не успешно!");
+				}
+			}
+		});
+		menu.add(menuLoadLvl);
 	}
 }
