@@ -10,7 +10,7 @@ import java.util.Stack;
 
 public class MultiLevelParcing {
 	ArrayList<Parking<ITransport, IWheel>> parkingstages;
-	private static final int countPlaces = 10;
+	private static final int countPlaces = 5;
 	private int pictureWidth;
 	private int pictureHeight;
 	public MultiLevelParcing(int countStages, int pictureWidth, int pictureHeight)
@@ -23,6 +23,15 @@ public class MultiLevelParcing {
 		this.pictureHeight = pictureHeight;
 		this.pictureWidth = pictureWidth;
 	}
+	public Parking<ITransport, IWheel> getParking(int index){
+
+		if (index > -1 && index < parkingstages.size())
+		{
+			return parkingstages.get(index);
+		}
+		return null;
+	}
+	
 	public boolean SaveData(String filename)
     {
 		try(FileWriter writer = new FileWriter(filename)){
@@ -59,7 +68,7 @@ public class MultiLevelParcing {
 		if(ind <= -1 && ind >= parkingstages.size())
 			return false;
 		try(FileWriter writer = new FileWriter(filename)){
-			writer.write("Level:" + ind + System.getProperty("line.separator"));			
+			writer.write("Level:" + ind + System.getProperty("line.separator"));
 				Parking<ITransport, IWheel> current = parkingstages.get(ind);
 				for(int i = 0; i < countPlaces; i++) {
 					ITransport truck = current.getTruck(i);
@@ -82,9 +91,10 @@ public class MultiLevelParcing {
 		return true;
     }
 
-    public boolean LoadData(String filename)
+    public boolean LoadData(String filename) throws ParkingOccupiedPlaceException, IOException
     {
     	String buff = "";
+    	int count = -1;
         try (FileReader fr = new FileReader(filename))
         {
         	BufferedReader reader = new BufferedReader(fr);
@@ -98,7 +108,6 @@ public class MultiLevelParcing {
             }
             else
                 return false;
-            int count = -1;
             while (reader.ready())
             {
                 buff = reader.readLine();
@@ -131,33 +140,28 @@ public class MultiLevelParcing {
                     parkingstages.get(count).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }
             }
-        }catch(IOException e) {
-        	return false;
+            reader.close();
+        }catch(ParkingOccupiedPlaceException | IOException ex) {
+        	if (ex instanceof ParkingOccupiedPlaceException) {
+				throw new ParkingOccupiedPlaceException(count);
+			} else throw new IOException();
         }
         return true;
     }
     
-	public Parking<ITransport, IWheel> getParking(int index){
-
-		if (index > -1 && index < parkingstages.size())
-		{
-			return parkingstages.get(index);
-		}
-		return null;
-	}
 	
-	public boolean LoadDataLvl(String filename)
+	public boolean LoadDataLvl(String filename) throws IOException, ParkingOccupiedPlaceException
     {
         String buff = "";
         try (FileReader fr = new FileReader(filename))
         {
         	BufferedReader reader = new BufferedReader(fr);
             buff = reader.readLine();
-            int Level;
+            int LevelNumber;
             if (buff.split(":")[0].equals("Level"))
             {
-            	Level = Integer.parseInt(buff.split(":")[1]);
-            	parkingstages.set(Level, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
+            	LevelNumber = Integer.parseInt(buff.split(":")[1]);
+            	parkingstages.set(LevelNumber, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
             }
             else
                 return false;
@@ -175,7 +179,7 @@ public class MultiLevelParcing {
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(Level).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                    parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }else if (buff.split(":")[1].equals("FullTruck"))
                 {
                     truck = new FullTruck(buff.split(":")[3]);
@@ -185,20 +189,26 @@ public class MultiLevelParcing {
                     	wheel = new OneDiskWheel(Color.black);
                     else if (buff.split(":")[2].equals("TwoDiskWheel"))
                     	wheel = new TwoDiskWheel(Color.black);
-                    parkingstages.get(Level).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
+                    parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }
             }
-        }catch(IOException e) {
-        	return false;
-        }
+        }catch(ParkingOccupiedPlaceException ex) {
+        	throw ex;
+        }catch (IOException ex) {
+			throw ex;
+		}
         return true;
     }
 	public ITransport getITransport(int i, int j) {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
 				ITransport truck = parkingstages.get(i).getTruck(j);
-				parkingstages.get(i).SubTruck(j);
-				return truck;
+				try {
+					parkingstages.get(i).SubTruck(j);
+					return truck;
+				} catch(ParkingNotFoundException ex) {
+					throw new ParkingNotFoundException(j);
+				}
 			}
 		}
 		return null;

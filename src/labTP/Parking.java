@@ -21,7 +21,7 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
         PictureHeight = pictureHeight;
     }
 
-    public int addTruck(T truck)
+    public int addTruck(T truck) throws ParkingOverflowException
     {
     	for (int i = 0; i < size; i++)
         {
@@ -33,9 +33,9 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
                 return i;
             }
         }
-        return -1;
+    	throw new ParkingOverflowException();
     }
-    public int addTruckall(T truck, G wheel) {
+    public int addTruckall(T truck, G wheel) throws ParkingOverflowException {
     	for (int i = 0; i < size; i++)
         {
             if (!CheckFreePlace(i))
@@ -47,9 +47,9 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
                 return i;
             }
         }
-        return -1;
+    	throw new ParkingOverflowException();
     }
-    public int addTruck(T truck, int index)
+    public int addTruck(T truck, int index) throws ParkingOccupiedPlaceException
     {
             if (!CheckFreePlace(index))
             {
@@ -58,9 +58,9 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
                         PictureHeight);
                 return index;
             }
-        return -1;
+            throw new ParkingOccupiedPlaceException(index);
     }
-    public int addTruckall(T truck, G wheel, int index) {
+    public int addTruckall(T truck, G wheel, int index) throws ParkingOccupiedPlaceException {
             if (!CheckFreePlace(index))
             {
                 _places.put(index, truck);
@@ -69,7 +69,7 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
                 _placesWithWheel.get(index).SetPosition(_places.get(index).getPosX(), _places.get(index).getPosY());
                 return index;
             }
-        return -1;
+            throw new ParkingOccupiedPlaceException(index);
     }
     public T getTruck(int index) {
     	return _places.get(index);
@@ -81,18 +81,21 @@ public class Parking <T extends Object&ITransport, G extends Object&IWheel> {
     
     public T SubTruck(int index)
     {
-        if (CheckFreePlace(index))
-        {
+    	if (index < 0 || index > size) return null;
+        if (CheckFreePlace(index)) {
             T truck = _places.get(index);
             _places.remove(index);
             return truck;
         }
-        return null;
+        throw new ParkingNotFoundException(index);
     }
     
     public G SubWheel(int index) {
-        if (_placesWithWheel.containsKey(index))
-        {
+    	
+    	if (index < 0 || index > size) {
+            return null;
+        }
+        if (_placesWithWheel.containsKey(index)) {
             G wheel = _placesWithWheel.get(index);
             _placesWithWheel.remove(index);
             return wheel;

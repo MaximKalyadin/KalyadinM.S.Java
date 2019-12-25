@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -22,7 +27,8 @@ public class TransferDisigned {
 	private PanelParking basePanel;
 	private MultiLevelParcing baseParking;
 	private JList<String> baseList;
-
+	private Logger loggererror;
+	private Logger logger;
 	/**
 	 * Launch the application.
 	 */
@@ -54,6 +60,9 @@ public class TransferDisigned {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		loggererror = Logger.getLogger(TruckDesigner.class.getName() + "2");
+		logger = Logger.getLogger(TruckDesigner.class.getName() + "1");
 		frame = new JFrame();
 		frame.setTitle("Окно добавления");
 		frame.setBounds(100, 100, 646, 325);
@@ -143,15 +152,22 @@ public class TransferDisigned {
 		JButton btnAccept = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
 		btnAccept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(panelTruck.getTruck() != null && panelTruck.getWheel() != null) {
-					baseParking.getParking(baseList.getSelectedIndex()).addTruckall(panelTruck.getTruck(), panelTruck.getWheel());
-					basePanel.repaint();
-				}else if(panelTruck.getTruck() != null && panelTruck.getWheel() == null) {
-					baseParking.getParking(baseList.getSelectedIndex()).addTruck(panelTruck.getTruck());
-					basePanel.repaint();
+				try {
+					if(panelTruck.getTruck() != null && panelTruck.getWheel() != null) {
+						baseParking.getParking(baseList.getSelectedIndex()).addTruckall(panelTruck.getTruck(), panelTruck.getWheel());
+						basePanel.repaint();
+					}else if(panelTruck.getTruck() != null && panelTruck.getWheel() == null) {
+						baseParking.getParking(baseList.getSelectedIndex()).addTruck(panelTruck.getTruck());
+						basePanel.repaint();
+					}
+					logger.info("Добавлен бензовоз");
+					frame.setVisible(false);
+					frame.dispose();
+				} catch(ParkingOverflowException ex) {
+					loggererror.warning("Парковка переполнена");
+					JOptionPane.showMessageDialog(frame, "Парковка переполнена",
+							"Exception", JOptionPane.ERROR_MESSAGE);
 				}
-				frame.setVisible(false);
-				frame.dispose();
 			}
 		});
 		btnAccept.setBounds(10, 112, 99, 23);
