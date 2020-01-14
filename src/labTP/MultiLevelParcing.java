@@ -2,6 +2,7 @@ package labTP;
 
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,19 +96,17 @@ public class MultiLevelParcing {
     {
     	String buff = "";
     	int count = -1;
-        try (FileReader fr = new FileReader(filename))
-        {
-        	BufferedReader reader = new BufferedReader(fr);
-            buff = reader.readLine();
-            if (buff.split(":")[0].equals("CountLevels"))
-            {
-                int countLevel = Integer.parseInt(buff.split(":")[1]);
-                if (parkingstages != null)
-                	parkingstages.clear();
-                parkingstages = new ArrayList<Parking<ITransport, IWheel>>(countLevel);
+        FileReader fr = new FileReader(filename);
+        BufferedReader reader = new BufferedReader(fr);
+        buff = reader.readLine();
+        if (buff.split(":")[0].equals("CountLevels")) {
+            int countLevel = Integer.parseInt(buff.split(":")[1]);
+            if (parkingstages != null)
+            	parkingstages.clear();
+            parkingstages = new ArrayList<Parking<ITransport, IWheel>>(countLevel);
             }
             else
-                return false;
+            	throw new FileNotFoundException();
             while (reader.ready())
             {
                 buff = reader.readLine();
@@ -141,11 +140,6 @@ public class MultiLevelParcing {
                 }
             }
             reader.close();
-        }catch(ParkingOccupiedPlaceException | IOException ex) {
-        	if (ex instanceof ParkingOccupiedPlaceException) {
-				throw new ParkingOccupiedPlaceException(count);
-			} else throw new IOException();
-        }
         return true;
     }
     
@@ -153,18 +147,16 @@ public class MultiLevelParcing {
 	public boolean LoadDataLvl(String filename) throws IOException, ParkingOccupiedPlaceException
     {
         String buff = "";
-        try (FileReader fr = new FileReader(filename))
-        {
-        	BufferedReader reader = new BufferedReader(fr);
-            buff = reader.readLine();
-            int LevelNumber;
-            if (buff.split(":")[0].equals("Level"))
-            {
-            	LevelNumber = Integer.parseInt(buff.split(":")[1]);
-            	parkingstages.set(LevelNumber, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
-            }
+        FileReader fr = new FileReader(filename);
+        BufferedReader reader = new BufferedReader(fr);
+        buff = reader.readLine();
+        int LevelNumber;
+        if (buff.split(":")[0].equals("Level")) {
+        LevelNumber = Integer.parseInt(buff.split(":")[1]);
+        parkingstages.set(LevelNumber, new Parking<ITransport, IWheel>(countPlaces, pictureWidth, pictureHeight));
+        }
             else
-                return false;
+            	throw new FileNotFoundException();
             while (reader.ready())
             {
                 buff = reader.readLine();
@@ -192,29 +184,21 @@ public class MultiLevelParcing {
                     parkingstages.get(LevelNumber).addTruckall(truck, wheel, Integer.parseInt(buff.split(":")[0]));
                 }
             }
-        }catch(ParkingOccupiedPlaceException ex) {
-        	throw ex;
-        }catch (IOException ex) {
-			throw ex;
-		}
+            reader.close();
         return true;
     }
-	public ITransport getITransport(int i, int j) {
+	public ITransport getITransport(int i, int j) throws ParkingNotFoundException {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
 				ITransport truck = parkingstages.get(i).getTruck(j);
-				try {
-					parkingstages.get(i).SubTruck(j);
-					return truck;
-				} catch(ParkingNotFoundException ex) {
-					throw new ParkingNotFoundException(j);
-				}
+				parkingstages.get(i).SubTruck(j);
+				return truck;
 			}
 		}
 		return null;
 	}
 	
-	public IWheel getIWheel(int i, int j) {
+	public IWheel getIWheel(int i, int j) throws ParkingNotFoundException {
 		if(i > -1 && i < parkingstages.size()) {
 			if(j > -1 && j < parkingstages.get(i).size) {
 				IWheel wheel = parkingstages.get(i).getWheel(j);
